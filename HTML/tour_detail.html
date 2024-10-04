@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Details</title>
+    <link rel="stylesheet" href="CSS/tour_detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <h1>Tournament Details</h1>
+            <div class="navbar">
+                <a href="homepage.html" class="back-icon">
+                    <i class="fas fa-arrow-left"></i>
+                </a> 
+                <input type="text" class="search-bar" placeholder="Search for tournaments..." id="search" oninput="filterTournaments()">
+                <button class="enter-label" onclick="search()">
+                    Enter
+                </button>
+            </div>
+            <div class="grid">
+                <div class="grid-item">
+                    <a href="tour_name.html"><img src="images/football2.jpeg" alt="Football Tournament">
+                    <p>Football Tournament</p></a>
+                </div>
+                <div class="grid-item">
+                    <img src="images/basketball.jpeg" alt="Basketball Tournament">
+                    <p>Basketball Tournament</p>
+                </div>
+                <div class="grid-item">
+                    <img src="images/vollyball.jpg" alt="Volleyball Tournament">
+                    <p>Volleyball Tournament</p>
+                </div>
+                <div class="grid-item">
+                    <img src="images/badminton.jpeg" alt="Badminton Tournament">
+                    <p>Badminton Tournament</p>
+                </div>
+                <div class="grid-item">
+                    <img src="images/Burmese-pork-curry.jpg" alt="Table Tennis Tournament">
+                    <p>Table Tennis Tournament</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="Script.js/tour_detail.js"></script>
+</body>
+</html>

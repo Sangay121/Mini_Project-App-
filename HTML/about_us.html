@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e0e0e0;
+            color: #000;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Prevent body scrolling */
+        }
+        .phone-screen {
+            width: 350px;
+            height: 620px;
+            border-radius: 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            overflow: hidden; /* Keep the scrolling confined to the content section */
+            background-color: #d4d4d4;
+            position: relative;
+        }
+        .header {
+            background-color: #a64ac9;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        .header .icons {
+            margin-right: 20px;
+        }
+        .header .icons i {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .content {
+            height: calc(100% - 60px); /* Adjust height to fill remaining screen space */
+            overflow-y: auto; /* Enable vertical scrollbar */
+            padding: 20px; /* Add padding for better readability */
+            text-align: left; /* Align text to the left for better readability */
+        }
+        .content h2 {
+            font-size: 22px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .content p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+        .content ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .content ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-screen">
+    <div class="header">
+        <i class="fa fa-arrow-left" onclick="goBack()"></i>
+        <div class="title">About Us</div>
+        <div class="icons">
+            <i class="fa fa-info-circle"></i>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>About Our Application</h2>
+        <p>Welcome to our platform - dedicated to enhancing your sports experience! Whether you are an athlete, a coach, or a fan, we believe everyone deserves to connect and engage with sports in an enjoyable way.</p>
+        
+        <h3>Mission</h3>
+        <p>Our mission is to empower sports enthusiasts through technology and community engagement. We strive to create an inclusive platform that supports athletes at every level.</p>
+        
+        <h3>Vision</h3>
+        <p>We envision a world where sports data and connectivity work hand-in-hand to make sports more accessible, exciting, and data-driven.</p>
+        
+        <h3>Key Features</h3>
+        <ul>
+            <li>Real-time updates on tournaments and events.</li>
+            <li>Interactive community forums for athletes and fans.</li>
+            <li>In-depth player and team statistics to help you stay informed.</li>
+            <li>Customizable profiles to showcase your sports journey.</li>
+            <li>Support for multiple sports disciplines, all in one application.</li>
+        </ul>
+
+        <h3>Our Story</h3>
+        <p>Founded in [Year], our team is comprised of sports enthusiasts, tech innovators, and community leaders who came together to change the way people experience sports. We've spent countless hours perfecting our features and listening to user feedback to create a platform that truly meets the needs of our users.</p>
+        
+        <p>Your feedback is invaluable in our journey. Join us as we continue to innovate and improve the world of sports engagement!</p>
+    </div>
+</div>
+
+<!-- Font Awesome CDN -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<script>
+    function goBack() {
+        window.history.back(); // Navigate back to the previous page
+    }
+</script>
+
+</body>
+</html>

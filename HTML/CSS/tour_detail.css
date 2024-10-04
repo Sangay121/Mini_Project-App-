@@ -1,0 +1,110 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Using Poppins font */
+}
+
+body {
+    background: url("images/99.jpg"); /* Update with your image path */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.box {
+    display: flex;
+    flex-direction: column; /* Changed to column for details */
+    position: relative;
+    padding: 60px 20px 30px 20px;
+    height: 620px;
+    width: 350px;
+    max-width: 400px;
+    border-radius: 30px;
+    background-color: rgba(211, 211, 211, 0.5); /* Light transparent */
+    backdrop-filter: blur(15px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+h1 {
+    text-align: center;
+    color: #000000; /* Header color */
+    margin-bottom: 10px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.back-icon {
+    color: #6e009d; /* Color for the back button */
+    text-decoration: none;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.search-bar {
+    flex: 1; /* Make the search bar grow to occupy space */
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-right: 10px; /* Margin between search bar and button */
+}
+
+.enter-label {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: #6e009d; /* Same color as the header */
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.enter-label:hover {
+    background-color: #5a0081; /* Darker shade on hover */
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+}
+
+.grid-item {
+    text-align: center;
+    background-color: rgba(246, 237, 228, 0.9); /* Same hover colors */
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.grid-item:hover {
+    transform: scale(1.05);
+}
+
+.grid-item img {
+    width: 120px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.grid-item p {
+    margin-top: 10px;
+    color: #333;
+}

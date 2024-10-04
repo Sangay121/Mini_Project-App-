@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e0e0e0;
+            color: #000;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .phone-screen {
+            width: 350px;
+            height: 620px;
+            border-radius: 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            background-color: #d4d4d4;
+            position: relative;
+        }
+        .header {
+            background-color: #a64ac9;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        .header .icons {
+            margin-right: 20px;
+        }
+        .header .icons i {
+            font-size: 20px;
+        }
+        .profile-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .profile-section img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+        }
+        .profile-section h2 {
+            margin-top: 15px;
+            font-size: 22px;
+        }
+        .button-container {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .button {
+            background-color: #bdbdbd;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+            display: inline-block;
+            width: 80%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-screen">
+    <div class="header">
+        <i class="fa fa-arrow-left" onclick="goBack()"></i>
+        <div class="title">Account</div>
+        <div class="icons">
+            <i class="fa fa-user"></i>
+        </div>
+    </div>
+
+    <div class="profile-section">
+        <img src="images/profile pic.jpg" alt="Profile Image">
+        <h2>Profile Name</h2>
+    </div>
+
+    <div class="button-container">
+        <div class="button" id="changeProfileBtn">Change profile</div>
+        <div class="button" id="changePasswordBtn">Change password</div>
+        <div class="button" id="logOutBtn">Log out</div>
+    </div>
+</div>
+
+<!-- Font Awesome CDN -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<script>
+    function goBack() {
+        alert('Going back to the previous page.');
+    }
+
+    // Function to navigate to "Change Profile" section or page
+    document.getElementById("changeProfileBtn").addEventListener("click", function() {
+        window.location.href = "change_profile.html"; // Link to your change profile page
+    });
+
+    // Function to navigate to "Change Password" section or page
+    document.getElementById("changePasswordBtn").addEventListener("click", function() {
+        window.location.href = "change_password.html"; // Link to your change password page
+    });
+
+    // Function to navigate to "Log Out" section or page
+    document.getElementById("logOutBtn").addEventListener("click", function() {
+        window.location.href = "homepage.html"; // Link to your log out page
+    });
+</script>
+
+</body>
+</html>

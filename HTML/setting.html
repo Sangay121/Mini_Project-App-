@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e0e0e0;
+            color: #000;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .phone-screen {
+            width: 350px;
+            height: 620px;
+            border-radius: 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            background-color: #d4d4d4;
+            position: relative;
+        }
+        .header {
+            background-color: #a64ac9;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        .header .icons {
+            margin-right: 20px;
+        }
+        .header .icons i {
+            font-size: 20px;
+            cursor: pointer; /* Change cursor to pointer for clickable icons */
+        }
+        .button-container {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .button {
+            background-color: #bdbdbd;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+            display: inline-block;
+            width: 80%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-screen">
+    <div class="header">
+        <i class="fa fa-arrow-left" onclick="goBack()"></i>
+        <div class="title">Settings</div>
+        <div class="icons">
+            <i class="fa fa-cog"></i>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <div class="button" id="privacySettingsBtn">Privacy Settings</div>
+        <div class="button" id="notificationSettingsBtn">Notification Settings</div>
+        <div class="button" id="languageSettingsBtn">Language Settings</div>
+        <div class="button" id="helpSupportBtn">Help & Support</div>
+    </div>
+</div>
+
+<!-- Font Awesome CDN -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<script>
+    function goBack() {
+        window.history.back(); // Navigate back to the previous page
+    }
+
+    // Navigate to Privacy Settings page
+    document.getElementById("privacySettingsBtn").addEventListener("click", function() {
+        window.location.href = "privacy_settings.html"; // Link to your Privacy Settings page
+    });
+
+    // Navigate to Notification Settings page
+    document.getElementById("notificationSettingsBtn").addEventListener("click", function() {
+        window.location.href = "notification_settings.html"; // Link to your Notification Settings page
+    });
+
+    // Navigate to Language Settings page
+    document.getElementById("languageSettingsBtn").addEventListener("click", function() {
+        window.location.href = "language_settings.html"; // Link to your Language Settings page
+    });
+
+    // Navigate to Help & Support page
+    document.getElementById("helpSupportBtn").addEventListener("click", function() {
+        window.location.href = "help_support.html"; // Link to your Help & Support page
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Search Page</title>
+    <link rel="stylesheet" href="CSS/tour_name.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="container">
+        <div class="box">
+            <div class="navbar">
+                <a href="tour_detail.html" class="back-icon">
+                    <i class="fas fa-arrow-left"></i>
+                </a> 
+                <input type="text" class="search-bar" placeholder="Search for tournaments..." id="search" oninput="filterTournaments()">
+                <button class="enter-label" onclick="searchTournament()">
+                    Enter
+                </button>
+            </div>
+
+            <ul class="tournament-list" id="tournamentList">
+                <li><a href="ground_booking.html">JNEC KickOff</a></li>
+                <li><a href="#">Departmental Tournament</a></li>
+                <li><a href="#">Class Tournament</a></li>
+            </ul>
+
+            <img src="images/football.jpeg" alt="pic">
+        </div>
+    </div>
+    
+    <script src="Script.js/tour_name.js"></script>
+</body>
+</html>
