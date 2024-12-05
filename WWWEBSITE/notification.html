@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Notifications</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #e0f7fa;
+            padding: 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .navbar h1 {
+            color: #00838f;
+        }
+
+        .notification-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 10px 0;
+        }
+
+        .notification:last-child {
+            border-bottom: none; /* Remove border from last item */
+        }
+
+        .notification p {
+            margin: 0;
+            color: #333;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .approved {
+            color: green;
+        }
+
+        .cancelled {
+            color: red;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>User Notifications</h1>
+        <a href="logout.html">Logout</a>
+    </div>
+
+    <div class="notification-container">
+        <h2>Notifications</h2>
+
+        <div class="notification">
+            <p>Booking for <strong>Football</strong> on <strong>2023-10-20</strong> at <strong>10:00</strong> in <strong>thangzor</strong> has been <span class="status approved">Approved</span>.</p>
+        </div>
+        
+        <div class="notification">
+            <p>Booking for <strong>Basketball</strong> on <strong>2023-10-21</strong> at <strong>12:00</strong> in <strong>thangzor</strong> has been <span class="status approved">Approved</span>.</p>
+        </div>
+
+        <div class="notification">
+            <p>Booking for <strong>Tennis</strong> on <strong>2023-10-22</strong> at <strong>14:00</strong> in <strong>MPH</strong> has been <span class="status cancelled">Cancelled</span>.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2023 Sports Booking System. All rights reserved.</p>
+    </div>
+
+</body>
+</html>

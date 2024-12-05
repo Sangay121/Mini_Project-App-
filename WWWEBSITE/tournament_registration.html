@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Booking Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #e0f7fa;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #006064;
+            color: #fff;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: block;
+            margin: 10px 0;
+            background-color: #00838f;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #00acc1;
+            transform: scale(1.05);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .navbar h1 {
+            display: flex;
+            align-items: center;
+            color: #006064;
+            font-size: 24px;
+            margin-left: 10px;
+        }
+
+        .navbar .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .menu i {
+            margin-right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #00838f;
+        }
+
+        .navbar .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .profile img {
+            border-radius: 50%;
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .navbar .profile div {
+            text-align: right;
+        }
+
+        .navbar .profile a {
+            color: #00838f;
+            text-decoration: none;
+        }
+
+        .content {
+            flex: 1;
+            padding: 80px 20px; /* Add padding to offset the navbar height */
+            margin-left: 250px; /* Space for the sidebar */
+            transition: margin-left 0.3s;
+        }
+
+        .content.fullscreen {
+            margin-left: 0; /* No margin when sidebar is hidden */
+        }
+
+        .divider {
+            height: 2px;
+            background-color: black;
+            margin: 20px 0;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .card {
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+            border-top: 4px solid #006064;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Individual card colors */
+        .card.football {
+            background-color: #100058;
+        }
+
+        .card.basketball {
+            background-color: #00530b;
+        }
+
+        .card.volleyball {
+            background-color: #9b0000;
+        }
+
+        .card.badminton {
+            background-color: #5a4200;
+        }
+
+        .card.table-tennis {
+            background-color: #060041;
+        }
+
+        .card h3 {
+            margin-bottom: 8px;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+                padding: 15px;
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 70px 10px; /* Less padding for mobile */
+            }
+
+            .navbar h1 {
+                font-size: 20px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr; /* Single column on mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar h1 {
+                font-size: 18px;
+            }
+
+            .navbar .profile div {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Sports Dashboard</h2>
+        <a href="book_facility.html">Book Facility</a>
+        <a href="tournament_registration.html">Tournament Registration</a>
+        <a href="booking_details.html">Booking details</a>
+        <a href="view_details.html">View Details</a>
+    </div>
+
+    <div class="navbar">
+        <div class="menu">
+            <i class="fa fa-bars" id="menu-toggle"></i>
+            <h1>Sports Dashboard</h1>
+        </div>
+        <div class="profile">
+            <img src="https://via.placeholder.com/40" alt="Profile">
+            <div>
+                <p><strong>Chopel</strong></p>
+                <p><a href="">Notifications</a> | <a href="profile.html">Profile</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="divider"></div> <!-- Divider Line -->
+
+        <h2>Select a Sport to Register For</h2>
+        <p>Please choose a sport from the options below:</p>
+        <div class="cards">
+            <a href="Afootball_tour.html" class="card football"> 
+                <img src="img/football.jpeg" alt="Football">
+                <h3>Football tournament</h3>
+            </a>
+            <a href="Abasketball_tour.html" class="card basketball">
+                <img src="img/basketball.jpeg" alt="Basketball">
+                <h3>Basketball tournament</h3>
+            </a>
+            <a href="Avolley_tour.html" class="card volleyball">
+                <img src="img/volleyball.jpeg" alt="Volleyball">
+                <h3>Volleyball tournament</h3>
+            </a>
+            <a href="Abadminton_tour.html" class="card badminton">
+                <img src="img/badminton.jpeg" alt="Badminton">
+                <h3>Badminton tournament</h3>
+            </a>
+            <a href="Atabletennis_tour.html" class="card table-tennis">
+                <img src="img/table-tennis-shots.jpg" alt="Table Tennis">
+                <h3>Table Tennis tournament</h3>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById("menu-toggle");
+        const sidebar = document.querySelector(".sidebar");
+        const content = document.querySelector(".content");
+
+        menuToggle.addEventListener("click", function() {
+            sidebar.classList.toggle("hidden");
+            content.classList.toggle("fullscreen"); // For responsive view if needed
+        });
+    </script>
+
+</body>
+</html>

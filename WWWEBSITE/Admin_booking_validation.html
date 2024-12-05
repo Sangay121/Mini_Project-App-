@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Booking Management</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .booking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #e9ecef;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        .booking-item button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .booking-item button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Admin Approval</h1>
+        <div id="bookings-list">
+            <h3>Pending Bookings</h3>
+            <!-- Bookings will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        // Sample data representing the initial bookings
+        const bookings = [
+            { id: 1, sport: 'Football', date: '2024-12-20', time: '10:00', location: 'thangzor', status: 'Pending' },
+            { id: 2, sport: 'Basketball', date: '2023-10-21', time: '12:00', location: 'thangzor', status: 'Pending' },
+            { id: 3, sport: 'Tennis', date: '2023-10-22', time: '14:00', location: 'MPH', status: 'Pending' }
+        ];
+
+        function renderBookings() {
+            const bookingsListDiv = document.getElementById("bookings-list");
+            bookingsListDiv.innerHTML = '<h3>Pending Bookings</h3>'; // Reset content
+
+            bookings.forEach((booking) => {
+                if (booking.status === 'Pending') {
+                    const bookingItem = document.createElement("div");
+                    bookingItem.className = "booking-item";
+                    bookingItem.innerHTML = `
+                        <span>${booking.sport} - ${booking.date} ${booking.time} at ${booking.location}</span>
+                        <div>
+                            <button onclick="approveBooking(${booking.id})">Approve</button>
+                            <button onclick="cancelBooking(${booking.id})">Cancel</button>
+                        </div>
+                    `;
+                    bookingsListDiv.appendChild(bookingItem);
+                }
+            });
+        }
+
+        function approveBooking(id) {
+            const booking = bookings.find(b => b.id === id);
+            if (booking) {
+                booking.status = 'Approved';
+                renderBookings(); // Refresh list
+            }
+        }
+
+        function cancelBooking(id) {
+            const bookingIndex = bookings.findIndex(b => b.id === id);
+            if (bookingIndex !== -1) {
+                bookings.splice(bookingIndex, 1); // Remove booking from the array
+                renderBookings(); // Refresh list
+            }
+        }
+
+        // Initial rendering of bookings
+        renderBookings();
+    </script>
+</body>
+
+</html>

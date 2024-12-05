@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixture Draw</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #ecf0f1; /* Light gray background */
+            margin: 0;
+            padding: 40px;
+            color: #34495e; /* Darker text color for contrast */
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2980b9; /* Primary color for the header */
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7; /* Light border */
+            border-radius: 10px; /* More rounded corners */
+            background-color: #fff; /* White background for form */
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s;
+        }
+
+        form:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+        }
+
+        label {
+            margin-right: 10px;
+            font-weight: 500;
+            color: #2c3e50; /* Darker color for labels */
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #3498db; /* Attractive border color */
+            border-radius: 5px; /* Rounded corners */
+            width: 350px; /* Slightly wider input */
+            transition: border-color 0.3s, box-shadow 0.3s; /* Adding box-shadow transition */
+            font-size: 14px;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2980b9; /* Darker blue on focus */
+            outline: none;
+            box-shadow: 0 0 5px rgba(41, 128, 185, 0.5); /* Light blue glow effect */
+        }
+
+        button {
+            padding: 10px 20px; /* Slightly larger padding */
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+            background-color: #2ecc71; /* Vibrant green */
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Box shadow for button */
+        }
+
+        button:hover {
+            background-color: #27ae60; /* Darker green on hover */
+            transform: translateY(-1px); /* Slight lift effect */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            display: none; /* Hide the table by default */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #3498db; /* Attractive header color */
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Light gray for even rows */
+        }
+
+        tr:hover {
+            background-color: #eaf2f8; /* Light blue on row hover */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Fixture Draw</h1>
+
+    <form id="fixtureForm">
+        <label for="teamsInput">Team Names (comma separated):</label>
+        <input type="text" id="teamsInput" placeholder="Enter team names" required>
+        <button type="submit">Generate Fixtures</button>
+    </form>
+
+    <table id="fixtureTable">
+        <thead>
+            <tr>
+                <th>Fixture</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        const fixtureForm = document.getElementById('fixtureForm');
+        const teamsInput = document.getElementById('teamsInput');
+        const fixtureTableBody = document.getElementById('fixtureTable').querySelector('tbody');
+        const fixtureTable = document.getElementById('fixtureTable');
+
+        fixtureForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const teams = teamsInput.value.trim().split(',').map(team => team.trim());
+            generateFixtures(teams);
+            teamsInput.value = ''; // Clear input after generating fixtures
+        });
+
+        function generateFixtures(teams) {
+            fixtureTableBody.innerHTML = ''; // Clear previous fixtures
+            if (teams.length < 2) {
+                alert('Please enter at least two teams.');
+                return;
+            }
+            const fixtures = createMatchups(teams);
+            fixtures.forEach(fixture => {
+                const row = fixtureTableBody.insertRow();
+                const cell = row.insertCell(0);
+                cell.textContent = fixture;
+            });
+            fixtureTable.style.display = 'table'; // Show fixture table
+        }
+
+        function createMatchups(teams) {
+            const matchups = [];
+            for (let i = 0; i < teams.length; i++) {
+                for (let j = i + 1; j < teams.length; j++) {
+                    matchups.push(${teams[i]} vs ${teams[j]});
+                }
+            }
+            return matchups;
+        }
+    </script>
+</body>
+
+</html>

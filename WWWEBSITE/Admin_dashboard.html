@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #e0f7fa;
+            overflow: hidden;
+        }
+
+        /* Updated sidebar color */
+        .sidebar {
+            width: 250px;
+            background-color: #333; /* Dark gray/black color */
+            color: #fff;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(0);
+            z-index: 1000; /* Ensure sidebar is above other elements */
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%); /* Hide sidebar */
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: block;
+            margin: 10px 0;
+            background-color: #444; /* A slightly lighter gray for the links */
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #555; /* Darken link on hover */
+            transform: scale(1.05);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%; /* Full width */
+            z-index: 1100; /* Higher z-index to keep it above sidebar */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .navbar .menu-icon {
+            font-size: 24px;
+            color: #00838f;
+            cursor: pointer;
+            margin-right: 20px; /* Space for alignment */
+        }
+
+        .navbar h1 {
+            color: #006064;
+            font-size: 24px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile img {
+            border-radius: 50%;
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .profile div {
+            text-align: right;
+        }
+
+        .profile div a {
+            color: #00838f;
+            text-decoration: none;
+        }
+
+        .notifications {
+            margin-left: 15px; /* Space between profile and notifications */
+            position: relative;
+        }
+
+        .notification-icon {
+            font-size: 24px;
+            color: #00838f;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        .notification-count {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 5px 8px;
+            font-size: 12px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 80px 20px; /* padding to accommodate navbar */
+            margin-left: 250px; /* offset for the sidebar */
+            transition: margin-left 0.3s, padding 0.3s;
+            background-color: #f6f6f6;
+            overflow-y: auto;
+        }
+
+        .content.fullscreen {
+            margin-left: 0; /* No margin when sidebar is hidden */
+        }
+
+        .divider {
+            height: 2px;
+            background-color: black;
+            margin: 20px 0;
+        }
+
+        section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: white;
+            transition: box-shadow 0.3s;
+        }
+
+        section:hover {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            margin: 0 0 10px;
+            color: #007bff;
+        }
+
+        section p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+                padding: 15px;
+            }
+
+            .content {
+                margin-left: 200px; /* update margin based on new sidebar width */
+            }
+
+            .navbar h1 {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar h1 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <h2>Admin Dashboard</h2>
+        <a href="Admin_sports_management.html">Sport Management</a>
+        <a href="Admin_tournament.html">Tournament Management</a>
+        <a href="">Match Result</a>
+        <a href="admin_fixture_draw.html">Fixture draw</a>
+    </div>
+
+    <div class="navbar">
+        <div class="menu-icon" id="menu-toggle">
+            <i class="fa fa-bars"></i>
+        </div>
+        <h1>Welcome to the Admin Dashboard</h1>
+        <div class="profile">
+            <img src="https://via.placeholder.com/40" alt="Profile">
+            <div>
+                <p><strong>Admin Name</strong></p>
+                <p><a href="login.html" style="color: #00838f; text-decoration: none;">Logout</a></p>
+            </div>
+        </div>
+        <div class="notifications">
+            <a href="Admin_booking_validation.html" class="notification-icon"> <!-- Added link to notifications -->
+                <i class="fa fa-bell"></i> <!-- Notification Icon -->
+            </a>
+            <span class="notification-count">3</span> <!-- Notification Count -->
+        </div>
+    </div>
+
+    <div class="content" id="content">
+        <div class="divider"></div>
+
+        <section id="sport-management">
+            <h2><a href="Admin_sports_management.html" style="color: #007bff; text-decoration: none;">Sport Management</a></h2>
+            <p>Manage sports here.</p>
+        </section>
+
+        <section id="tournament-management">
+            <h2><a href="Admin_tournament.html" style="color: #007bff; text-decoration: none;">Tournament Management</a></h2>
+            <p>Manage tournaments here.</p>
+        </section>
+
+        <section id="match-result">
+            <h2><a href="#match-result" style="color: #007bff; text-decoration: none;">Match Result</a></h2>
+            <p>View and manage match results here.</p>
+        </section>
+        <section id="fixture-draw">
+            <h2><a href="admin_fixture_draw.html" style="color: #007bff; text-decoration: none;">Fixture draw</a></h2>
+            <p>manage fixture draw.</p>
+        </section>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+
+        menuToggle.addEventListener('click', function () {
+            sidebar.classList.toggle('hidden'); // Toggles the sidebar hidden class
+            content.classList.toggle('fullscreen'); // Adjusts the content margin accordingly
+            const sidebarWidth = sidebar.classList.contains('hidden') ? '0' : '250px'; // Set width according to sidebar visibility
+            content.style.marginLeft = sidebarWidth; // Adjust content margin
+        });
+    </script>
+
+</body>
+
+</html>

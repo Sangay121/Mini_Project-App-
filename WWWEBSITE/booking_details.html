@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Booking Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #e0f7fa;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #006064;
+            color: #fff;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transform: translateX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: block;
+            margin: 10px 0;
+            background-color: #00838f;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #00acc1;
+            transform: scale(1.05);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .navbar h1 {
+            display: flex;
+            align-items: center;
+            color: #006064;
+            font-size: 24px;
+            margin-left: 10px;
+        }
+
+        .navbar .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .menu i {
+            margin-right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #00838f;
+        }
+
+        .navbar .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .profile img {
+            border-radius: 50%;
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .navbar .profile div {
+            text-align: right;
+        }
+
+        .navbar .profile a {
+            color: #00838f;
+            text-decoration: none;
+        }
+
+        .content {
+            flex: 1;
+            padding: 80px 20px; /* Add padding to offset the navbar height */
+            margin-left: 250px;
+            transition: margin-left 0.3s;
+        }
+
+        .content.fullscreen {
+            margin-left: 0;
+        }
+
+        .divider {
+            height: 2px;
+            background-color: black;
+            margin: 20px 0;
+        }
+
+        .booking-summary {
+            max-width: 600px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: auto; /* Center the summary */
+        }
+
+        .booking-summary h1 {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .booking-summary h2 {
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #4CAF50; /* Added border for distinction */
+            padding-bottom: 5px;
+        }
+
+        .booking-summary ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .booking-summary li {
+            margin: 10px 0;
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0; /* Added border for separation */
+        }
+
+        .booking-summary li:last-child {
+            border-bottom: none; /* Remove border from the last item */
+        }
+
+        .booking-summary a {
+            color: #4CAF50;
+            text-decoration: none; /* Removed underline from the link */
+        }
+
+        .booking-summary a:hover {
+            text-decoration: underline; /* Underline on hover for effect */
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+                padding: 15px;
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 70px 10px;
+            }
+
+            .navbar h1 {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar h1 {
+                font-size: 18px;
+            }
+
+            .navbar .profile div {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Sports Dashboard</h2>
+        <a href="book_facility.html">Book Facility</a>
+        <a href="tournament_registration.html">Tournament Registration</a>
+        <a href="view_booking.html">View Booking</a>
+        <a href="view_details.html">View Details</a>
+    </div>
+
+    <div class="navbar">
+        <div class="menu">
+            <i class="fa fa-bars" id="menu-toggle"></i>
+            <h1>Dashboard</h1>
+        </div>
+        <div class="profile">
+            <img src="https://via.placeholder.com/40" alt="Profile">
+            <div>
+                <p><strong>Chopel</strong></p>
+                <p><a href="">Notifications</a> | <a href="prof.jpg">Profile</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="divider"></div>
+
+        <!-- Booking Summary Section -->
+        <div class="booking-summary">
+            <h1>Booking Details</h1>
+            <p>Thank you, <strong>chopel</strong>! Your booking has been successfully completed.</p>
+            
+            <h2>Your Booking Details</h2>
+            <ul>
+                <li><strong>Event:</strong> Football</li>
+                <li><strong>Date:</strong> July 25, 2024</li>
+                <li><strong>Time:</strong> 3:00 PM - 5:00 PM</li>
+                <li><strong>Location:</strong> Thangzor Ground</li>
+                <li><strong>Participants:</strong> chopel</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        const content = document.querySelector('.content');
+
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('hidden');
+            content.classList.toggle('fullscreen');
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Sports Tournament Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.9"/>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif; /* Changed to a more common font */
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background: url(bg-image.jpg);
+            background-size: cover;
+        }
+
+        .container {
+            width: 90%; /* Responsive width */
+            max-width: 500px; /* Reduced max width */
+            background: rgba(0, 0, 0, 0.8); /* Slightly darker background */
+            padding: 20px; /* Reduced padding */
+            margin: 20px; /* Reduced margin */
+            border-radius: 8px; /* Smaller border radius */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* More subtle shadow */
+            display: block;
+        }
+
+        .confirmation-message {
+            background: rgba(0, 128, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: none; /* Start hidden */
+            margin-top: 20px; /* Added margin when shown */
+        }
+
+        .confirmation-message h2 {
+            margin-bottom: 8px;
+            font-size: 24px; /* Slightly smaller font size */
+        }
+
+        .confirmation-message p {
+            margin-bottom: 10px;
+            font-size: 16px; /* Slightly smaller font size */
+        }
+
+        .form-title {
+            font-size: 22px; /* Adjusted title size */
+            font-weight: 600;
+            text-align: center;
+            padding-bottom: 4px;
+            color: white;
+            text-shadow: 1px 1px 1px black;
+            border-bottom: solid 1px white;
+            margin-bottom: 15px; /* Added margin for separation */
+        }
+
+        .input-box {
+            width: 100%;
+            padding-bottom: 10px;
+        }
+
+        .input-box label {
+            color: white;
+            font-size: 16px; /* Slightly smaller font */
+            margin: 4px 0;
+            display: block;
+        }
+
+        .input-box input,
+        .input-box select {
+            height: 36px; /* Reduced height for inputs */
+            width: 100%;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid grey;
+            padding: 0 8px; /* Slightly reduced padding */
+        }
+
+        .gender-box {
+            margin-bottom: 10px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .gender-box label {
+            margin-right: 15px; /* Reducing margin */
+        }
+
+        .form-submit-btn {
+            margin-top: 15px;
+        }
+
+        .form-submit-btn input {
+            display: block;
+            width: 100%;
+            font-size: 18px; /* Smaller font size */
+            padding: 8px; /* Reduced padding */
+            border: none;
+            border-radius: 4px;
+            color: #fff; /* Text color */
+            background: rgba(63, 114, 76, 0.8);
+            transition: background 0.3s ease; /* Smooth transition */
+        }
+
+        .form-submit-btn input:hover {
+            background: rgba(56, 204, 93, 0.8);
+        }
+
+        .cancel-btn {
+            margin-top: 10px;
+            background: rgb(255, 69, 58);
+            color: white;
+            border: none;
+            padding: 8px; /* Reduced padding */
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px; /* Smaller font size */
+            transition: background 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background: darkred;
+        }
+    </style>
+    <script>
+        // Function to toggle player type dropdown
+        function togglePlayerType() {
+            const sportSelector = document.getElementById('sportType');
+            const playerTypeContainer = document.getElementById('playerTypeContainer');
+            
+            // Show player type dropdown for badminton or table tennis
+            playerTypeContainer.style.display = (sportSelector.value === 'badminton' || sportSelector.value === 'table-tennis') ? 'block' : 'none';
+        }
+
+        // Function to handle form submission
+        function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            // Hide the registration form and show confirmation message
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const registrationForm = document.getElementById('registrationForm');
+            
+            registrationForm.style.display = 'none'; // Hide the registration form
+            confirmationMessage.style.display = 'block'; // Show the confirmation message
+        }
+
+        // Function to handle registration cancellation
+        function cancelRegistration() {
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const registrationForm = document.getElementById('registrationForm');
+
+            confirmationMessage.style.display = 'none'; // Hide the confirmation message
+            registrationForm.style.display = 'block'; // Show the registration form again
+        }
+    </script>
+</head>
+<body>
+    <div class="container" id="registrationForm">
+        <h1 class="form-title">Sports Tournament Registration</h1>
+        <form onsubmit="submitForm(event);">
+            <div class="input-box">
+                <label for="sportType">Select Sport</label>
+                <select id="sportType" name="sportType" onchange="togglePlayerType()" required>
+                    <option value="">Choose a sport</option>
+                    <option value="soccer">Soccer</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="badminton">Badminton</option>
+                    <option value="table-tennis">Table Tennis</option>
+                </select>
+            </div>
+            <div id="playerTypeContainer" style="display: none;" class="input-box">
+                <label for="playerType">Select Player Type</label>
+                <select id="playerType" name="playerType">
+                    <option value="singles">Singles</option>
+                    <option value="doubles">Doubles</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <label for="teamName">Team Name</label>
+                <input type="text" id="teamName" name="teamName" placeholder="Enter Team Name" required />
+            </div>
+            <div class="input-box">
+                <label for="captainName">Captain's Name</label>
+                <input type="text" id="captainName" name="captainName" placeholder="Enter Captain's Name" required />
+            </div>
+            <div class="input-box">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter Email" required />
+            </div>
+            <div class="input-box">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter Phone Number" required />
+            </div>
+            <div class="input-box">
+                <label for="playersCount">Number of Players</label>
+                <input type="number" id="playersCount" name="playersCount" placeholder="Enter Number of Players" required min="1" />
+            </div>
+            <div class="gender-box">
+                <label>Gender:</label>
+                <label for="male">
+                    <input type="radio" id="male" name="gender" value="male" required> Male
+                </label>
+                <label for="female">
+                    <input type="radio" id="female" name="gender" value="female"> Female
+                </label>
+                <label for="other">
+                    <input type="radio" id="other" name="gender" value="other"> Other
+                </label>
+            </div>
+            <div class="form-submit-btn">
+                <input type="submit" value="Register">
+            </div>
+        </form>
+    </div>
+
+    <div id="confirmationMessage" class="confirmation-message">
+        <h2>Registration Successful!</h2>
+        <p>Your registration has been completed successfully.</p>
+        <button class="cancel-btn" onclick="cancelRegistration()">Cancel Registration</button>
+    </div>
+</body>
+</html>

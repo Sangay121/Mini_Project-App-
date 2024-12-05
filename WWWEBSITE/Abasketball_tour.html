@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball Tournament</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #e0f7fa;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #006064;
+            color: #fff;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transform: translateX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: block;
+            margin: 10px 0;
+            background-color: #00838f;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #00acc1;
+            transform: scale(1.05);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .navbar h1 {
+            display: flex;
+            align-items: center;
+            color: #006064;
+            font-size: 24px;
+            margin-left: 10px;
+        }
+
+        .navbar .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .menu i {
+            margin-right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #00838f;
+        }
+
+        .navbar .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .profile img {
+            border-radius: 50%;
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .navbar .profile div {
+            text-align: right;
+        }
+
+        .navbar .profile a {
+            color: #00838f;
+            text-decoration: none;
+        }
+
+        .content {
+            margin-left: 250px; /* space for the sidebar */
+            padding: 80px 20px 20px; /* padding from the top navbar */
+            position: relative;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #333;
+            margin: 0 0 20px 0;
+        }
+
+        .tournament {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px auto;
+            width: 300px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .tournament:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .registration-container {
+            width: calc(100% - 250px - 240px - 189px);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            right: 20px;
+            top: 80px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .form-title {
+            font-size: 22px;
+            font-weight: 600;
+            text-align: center;
+            padding-bottom: 4px;
+            color: white;
+            text-shadow: 1px 1px 1px black;
+            border-bottom: solid 1px white;
+            margin-bottom: 15px;
+        }
+
+        .input-box {
+            width: 100%;
+            padding-bottom: 10px;
+        }
+
+        .input-box label {
+            color: white;
+            font-size: 16px;
+            display: block;
+        }
+
+        .input-box input,
+        .input-box select {
+            height: 36px;
+            width: 100%;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid grey;
+            padding: 0 8px;
+        }
+
+        .form-submit-btn {
+            margin-top: 15px;
+        }
+
+        .form-submit-btn input {
+            display: block;
+            width: 100%;
+            font-size: 18px;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            background: rgba(63, 114, 76, 0.8);
+            transition: background 0.3s ease;
+        }
+
+        .form-submit-btn input:hover {
+            background: rgba(56, 204, 93, 0.8);
+        }
+
+        .confirmation-message {
+            background: rgba(0, 128, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+            display: none;
+            margin-top: 20px;
+        }
+
+        .cancel-btn {
+            margin-top: 10px;
+            background: rgb(255, 69, 58);
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background: darkred;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+                padding: 15px;
+            }
+
+            .navbar h1 {
+                font-size: 20px;
+            }
+
+            .registration-container {
+                width: calc(100% - 200px - 20px);
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar h1 {
+                font-size: 18px;
+            }
+
+            .navbar .profile div {
+                display: none;
+            }
+
+            .content {
+                padding: 70px 10px;
+            }
+
+            .tournament {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <h2>Sports Dashboard</h2>
+        <a href="book_facility.html">Book Facility</a>
+        <a href="tournament_registration.html">Tournament Registration</a>
+        <a href="booking_details.html">Booking details</a>
+        <a href="view_details.html">View Details</a>
+    </div>
+
+    <div class="navbar">
+        <div class="menu">
+            <i class="fa fa-bars" id="menu-toggle"></i>
+            <h1>Dashboard</h1>
+        </div>
+        <div class="profile">
+            <img src="https://via.placeholder.com/40" alt="Profile">
+            <div>
+                <p><strong>Chopel</strong></p>
+                <p><a href="">Notifications</a> | <a href="prof.jpg">Profile</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="divider"></div>
+        <h2>Basketball Tournaments</h2>
+
+        <div class="tournament" onclick="showRegistrationForm()">
+            <h3>Department Basketball Championship</h3>
+        </div>
+        <div class="tournament" onclick="showRegistrationForm()">
+            <h3>Class Match Basketball Championship</h3>
+        </div>
+
+        <div class="tournament" onclick="showRegistrationForm()">
+            <h3>Blockwise Basketball Championship</h3>
+        </div>
+    </div>
+
+    <div class="registration-container" id="registrationForm">
+        <h1 class="form-title">Basketball Tournament Registration</h1>
+        <form onsubmit="submitForm(event);">
+            <div class="input-box">
+                <label for="teamName">Team Name</label>
+                <input type="text" id="teamName" name="teamName" placeholder="Enter Team Name" required />
+            </div>
+            <div class="input-box">
+                <label for="captainName">Captain's Name</label>
+                <input type="text" id="captainName" name="captainName" placeholder="Enter Captain's Name" required />
+            </div>
+            <div class="input-box">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter Email" required />
+            </div>
+            <div class="input-box">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter Phone Number" required />
+            </div>
+            <div class="input-box">
+                <label for="playersCount">Number of Players</label>
+                <input type="number" id="playersCount" name="playersCount" placeholder="Enter Number of Players" required min="1" />
+            </div>
+            <div class="gender-box">
+                <label>Gender:</label>
+                <label for="male">
+                    <input type="radio" id="male" name="gender" value="male" required> Male
+                </label>
+                <label for="female">
+                    <input type="radio" id="female" name="gender" value="female"> Female
+                </label>
+                <label for="other">
+                    <input type="radio" id="other" name="gender" value="other"> Other
+                </label>
+            </div>
+            <div class="form-submit-btn">
+                <input type="submit" value="Register">
+            </div>
+        </form>
+    </div>
+
+    <div id="confirmationMessage" class="confirmation-message">
+        <h2>Registration Successful!</h2>
+        <p>Your registration has been completed successfully.</p>
+        <button class="cancel-btn" onclick="cancelRegistration()">Cancel Registration</button>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', function () {
+            sidebar.classList.toggle('hidden');
+        });
+
+        // Function to show registration form
+        function showRegistrationForm() {
+            const registrationForm = document.getElementById('registrationForm');
+            registrationForm.style.display = 'block'; // Show the form
+        }
+
+        // Function to handle form submission
+        function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Hide the registration form and show confirmation message
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const registrationForm = document.getElementById('registrationForm');
+
+            registrationForm.style.display = 'none'; // Hide the registration form
+            confirmationMessage.style.display = 'block'; // Show the confirmation message
+        }
+
+        // Function to handle registration cancellation
+        function cancelRegistration() {
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const registrationForm = document.getElementById('registrationForm');
+
+            confirmationMessage.style.display = 'none'; // Hide the confirmation message
+            registrationForm.style.display = 'block'; // Show the registration form again
+        }
+    </script>
+
+</body>
+
+</html>

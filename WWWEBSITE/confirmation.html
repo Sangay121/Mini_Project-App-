@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Booking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Existing styles here */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; 
+            min-height: 100vh;
+            background-color: #e0f7fa;
+            transition: margin-left 0.3s, padding-left 0.3s;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #006064;
+            color: #fff;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: block;
+            margin: 10px 0;
+            background-color: #00838f;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #00acc1;
+            transform: scale(1.05);
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 250px;
+            transition: margin-left 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content.fullscreen {
+            margin-left: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar h1 {
+            display: flex;
+            align-items: center;
+            color: #006064;
+            font-size: 24px;
+        }
+
+        .navbar i {
+            margin-left: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #00838f;
+        }
+
+        .navbar .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .profile img {
+            border-radius: 50%;
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .navbar .profile div {
+            text-align: right;
+        }
+
+        .navbar .profile a {
+            color: #00838f;
+            text-decoration: none;
+        }
+
+        .divider {
+            height: 2px;
+            background-color: black;
+            margin: 20px 0;
+        }
+
+        .big-picture {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .big-picture img {
+            width: 70%;
+            max-width: 400px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .big-picture p {
+            margin-top: 0;
+            font-size: 16px;
+            color: #333;
+            text-align: justify;
+            max-width: 500px;
+            font-style: italic;
+        }
+
+        .ground-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .ground-info img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            max-width: 400px;
+        }
+
+        .form-group {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input[type="time"],
+        .form-group select {
+            width: 90%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            margin: 5px auto;
+            display: block;
+        }
+
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .book-btn {
+            background-color: #bdbdbd;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 10px;
+            margin: 10px auto;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            width: 90%;
+        }
+
+        .feedback {
+            color: green;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .cancel-btn {
+            background-color: #ff6961; /* Light red */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            margin: 10px auto;
+            display: none; /* Hidden initially */
+            width: 90%;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px; 
+                padding: 15px; 
+            }
+
+            .content {
+                margin-left: 0; 
+                padding: 10px; 
+            }
+
+            .divider {
+                margin: 10px 0; 
+            }
+
+            .navbar h1 {
+                font-size: 20px; 
+            }
+
+            .big-picture img {
+                max-width: 85%; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar h1 {
+                font-size: 18px; 
+            }
+
+            .navbar .profile div {
+                display: none; 
+            }
+
+            .rule-item {
+                width: 350px; 
+            }
+
+            .ground-info img {
+                max-width: 80%; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Sports Dashboard</h2>
+        <a href="index.html">Book Facility</a>
+        <a href="tournament_registration.html">Tournament Registration</a>
+        <a href="view_booking.html">View Booking</a>
+        <a href="view_details.html">View Details</a>
+    </div>
+
+    <div class="content">
+        <div class="navbar">
+            <h1>
+                Football Booking
+                <i class="fa fa-bars" id="menu-toggle"></i>
+            </h1>
+            <div class="profile">
+                <img src="https://via.placeholder.com/40" alt="Profile">
+                <div>
+                    <p><strong>Chopel</strong></p>
+                    <p><a href="">Notifications</a> | <a href="profile.html">Profile</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div> <!-- Divider Line -->
+
+        <h2>Book a Football Slot</h2>
+        <p>Details for booking a football pitch go here...</p>
+
+        <!-- Ground Booking Section -->
+        <div class="big-picture">
+            <img src="img/thangzor_table_tennis.jpg" alt="Thangzor Table Tennis Facilities"> <!-- Update with the correct image of table tennis facilities -->
+            <div>
+                <h2>Thangzor Table Tennis Facilities</h2> <!-- Title updated -->
+                <p>Samdrup Jongkhar, Deothang</p> <!-- Location stays the same -->
+                <p>Jigme Namgyel Engineering College (JNEC) also has facilities for table tennis. It is another popular indoor game among students and is often played in recreational halls or dedicated indoor spaces.</p>
+                <p>Table tennis provides a great way for students to unwind and sharpen their reflexes during breaks between classes or in the evenings. The college may organize friendly matches or small tournaments as part of its sports festivals or events. This sport, along with badminton, adds to the variety of indoor sports available on campus, giving students multiple options for physical activity and recreation.</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="year">Select Year</label>
+            <select id="year" onchange="populateDateOptions()">
+                <script>
+                    for (let year = 2024; year <= 2026; year++) {
+                        document.write('<option value="' + year + '">' + year + '</option>');
+                    }
+                </script>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="date">Date of Match</label>
+            <select id="date"></select>
+        </div>
+
+        <div class="form-group">
+            <label for="start_time">Start Time of Match</label>
+            <input type="time" id="start_time" required>
+        </div>
+
+        <div class="form-group">
+            <label for="end_time">End Time of Match</label>
+            <input type="time" id="end_time" required>
+        </div>
+
+        <div class="button-container">
+            <button class="book-btn" id="bookBtn" onclick="bookGround()">Book</button>
+            <button class="cancel-btn" id="cancelBtn" onclick="cancelBooking()">Cancel Booking</button>
+        </div>
+
+        <div class="feedback" id="feedbackMessage"></div>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        const content = document.querySelector('.content');
+        const feedbackMessage = document.getElementById('feedbackMessage');
+        const cancelBtn = document.getElementById('cancelBtn');
+
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('hidden');
+            content.classList.toggle('fullscreen');
+        });
+
+        function populateDateOptions() {
+            const dateSelect = document.getElementById('date');
+            const yearSelect = document.getElementById('year');
+            const selectedYear = yearSelect.value;
+
+            // Clear previous options
+            dateSelect.innerHTML = '';
+
+            // Get the first and last day of the selected year
+            const startDate = new Date(selectedYear, 0, 1);
+            const endDate = new Date(selectedYear, 11, 31);
+
+            // Populate the dropdown with every day of the year
+            for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+                const options = document.createElement('option');
+                options.value = date.toISOString().split('T')[0];
+                options.textContent = date.toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric'
+                });
+                dateSelect.appendChild(options);
+            }
+        }
+
+        function showBookingSuccess() {
+            feedbackMessage.textContent = 'Booking successful! Your details have been saved.'; // Success message
+            feedbackMessage.style.color = 'green';
+        }
+
+        function showCancellationMessage() {
+            feedbackMessage.textContent = 'Booking canceled successfully.'; // Cancellation message
+            feedbackMessage.style.color = 'orange';
+        }
+
+        function bookGround() {
+            const year = document.getElementById('year').value;
+            const date = document.getElementById('date').value;
+            const startTime = document.getElementById('start_time').value;
+            const endTime = document.getElementById('end_time').value;
+
+            if (year && date && startTime && endTime) {
+                sessionStorage.setItem('bookingDetails', JSON.stringify({
+                    year: year,
+                    date: date,
+                    startTime: startTime,
+                    endTime: endTime
+                }));
+                showBookingSuccess(); // Call to show success message
+                cancelBtn.style.display = 'block'; // Show cancel button
+            } else {
+                feedbackMessage.textContent = 'Please fill all fields.'; // Error message
+                feedbackMessage.style.color = 'red';
+            }
+        }
+
+        function cancelBooking() {
+            const confirmation = confirm('Are you sure you want to cancel the booking?');
+
+            if (confirmation) {
+                sessionStorage.removeItem('bookingDetails'); // Clear booking details
+                showCancellationMessage(); // Call to show cancellation message
+                cancelBtn.style.display = 'none'; // Hide cancel button
+            }
+        }
+
+        // Populate dates for the default year on load
+        window.onload = function() {
+            populateDateOptions();
+        };
+    </script>
+
+</body>
+</html>

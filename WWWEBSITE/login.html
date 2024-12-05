@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Login</title>
+    <style>
+        /* Poppins Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            position: relative; /* Set to relative to position the image absolutely */
+            padding: 20px;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure the image covers the entire container */
+            z-index: -1; /* Send the image to the back */
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: 40px 20px;
+            max-width: 400px;
+            width: 100%;
+            border-radius: 30px;
+            background-color: rgba(211, 211, 211, 0.8); /* Slight transparency */
+            backdrop-filter: blur(15px);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .box-login,
+        .box-register {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .top-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .top-header h3 {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .input-group {
+            width: 100%;
+        }
+
+        .input-field {
+            margin: 12px 0;
+            position: relative;
+        }
+
+        .input-box {
+            width: 100%;
+            height: 50px;
+            font-size: 15px;
+            color: #040404;
+            border: none;
+            border-radius: 10px;
+            padding: 7px 20px;
+            background: rgba(224, 223, 223, 0.6);
+            outline: none;
+        }
+
+        .input-field label {
+            position: absolute;
+            left: 20px;
+            top: 15px;
+            font-size: 15px;
+            transition: .3s ease-in-out;
+        }
+
+        .input-box:focus ~ label,
+        .input-box:valid ~ label {
+            top: -10px;
+            font-size: 10px;
+            color: #c12828;
+            font-weight: 500;
+        }
+
+        .remember {
+            display: flex;
+            font-size: 13px;
+            margin: 12px 0 30px 0;
+            color: #000000;
+        }
+
+        .check {
+            margin-right: 8px;
+            width: 14px;
+        }
+
+        .input-submit {
+            width: 100%;
+            height: 50px;
+            font-size: 15px;
+            font-weight: 500;
+            border: none;
+            border-radius: 10px;
+            background: #bc6202;
+            color: #fff;
+            cursor: pointer;
+            transition: .4s;
+        }
+
+        .input-submit:hover {
+            background: #db3e00;
+        }
+
+        .forgot {
+            text-align: center;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        .switch {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .switch a {
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .eye-area {
+            position: absolute;
+            top: 25px;
+            right: 15px;
+            cursor: pointer;
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 576px) {
+            .box {
+                padding: 20px;
+            }
+
+            .input-box {
+                height: 45px;
+            }
+
+            .input-submit {
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <img class="background-image" src="img/coverpage.jpg" alt="Background Image"> <!-- Background image here -->
+    <div class="container">
+        <div class="box">
+            <div class="box-login" id="login">
+                <div class="top-header">
+                    <h3>Hello, Again!</h3>
+                    <small>We are happy to have you back.</small>
+                </div>
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <input type="text" class="input-box" id="logEmail" required>
+                            <label for="logEmail">Email address</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="password" class="input-box" id="logPassword" required>
+                            <label for="logPassword">Password</label>
+                            <div class="eye-area" onclick="togglePasswordVisibility('logPassword', 'eye', 'eye-slash')">
+                                <i class="fa-regular fa-eye" id="eye"></i>
+                                <i class="fa-regular fa-eye-slash" id="eye-slash" style="display:none;"></i>
+                            </div>
+                        </div>
+                        <div class="remember">
+                            <input type="checkbox" class="check" id="formCheck">
+                            <label for="formCheck">Remember Me</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="submit" class="input-submit" value="Log in">
+                        </div>
+                        <div class="forgot">
+                            <a href="#">Forgot password?</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="box-register" id="register" style="display: none;">
+                <div class="top-header">
+                    <h3>Sign Up, Now!</h3>
+                    <small>We are happy to have you with us.</small>
+                </div>
+                <div class="input-group">
+                    <div class="input-field">
+                        <input type="text" class="input-box" id="regUsername" required>
+                        <label for="regUsername">Username</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" class="input-box" id="regEmail" required>
+                        <label for="regEmail">Email address</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" class="input-box" id="regPassword" required>
+                        <label for="regPassword">Password</label>
+                        <div class="eye-area" onclick="togglePasswordVisibility('regPassword', 'eye-2', 'eye-slash-2')">
+                            <i class="fa-regular fa-eye" id="eye-2"></i>
+                            <i class="fa-regular fa-eye-slash" id="eye-slash-2" style="display:none;"></i>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <input type="submit" class="input-submit" value="Sign Up">
+                    </div>
+                </div>
+            </div>
+
+            <div class="switch">
+                <a href="#" class="login active" onclick="login()">Login</a>
+                <a href="#" class="register" onclick="register()">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const email = document.getElementById('logEmail').value;
+            const password = document.getElementById('logPassword').value;
+
+            const adminEmail = 'Administrator';
+            const adminPassword = 'admin123';
+            // Validate the email format for students
+            const studentEmailPattern = /^\d{8}\.jnec@rub\.edu\.bt$/; // Pattern for validation
+
+            if (email === adminEmail && password === adminPassword) {
+                // Redirect to the admin dashboard
+                window.location.href = "Admin_dashboard.html"; // Adjust the path to your admin dashboard
+            } else if (studentEmailPattern.test(email) && password) {
+                // Redirect to the user dashboard
+                window.location.href = "User_dashboard.html"; // Adjust the path to your user dashboard
+            } else {
+                // Handle invalid login
+                alert("Invalid login credentials. Please check your email and password.");
+            }
+        }
+
+        function togglePasswordVisibility(inputId, eyeId, eyeSlashId) {
+            const passwordField = document.getElementById(inputId);
+            const eyeIcon = document.getElementById(eyeId);
+            const eyeSlashIcon = document.getElementById(eyeSlashId);
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.style.display = "none";
+                eyeSlashIcon.style.display = "block";
+            } else {
+                passwordField.type = "password";
+                eyeIcon.style.display = "block";
+                eyeSlashIcon.style.display = "none";
+            }
+        }
+
+        function login() {
+            document.getElementById('login').style.display = "block";
+            document.getElementById('register').style.display = "none";
+        }
+
+        function register() {
+            document.getElementById('login').style.display = "none";
+            document.getElementById('register').style.display = "block";
+        }
+
+        // Initially display the login box
+        login();
+    </script>
+</body>
+
+</html>

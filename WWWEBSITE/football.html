@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Booking - Sports Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #e0f7fa;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #006064;
+            color: #fff;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: block;
+            margin: 10px 0;
+            background-color: #00838f;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #00acc1;
+            transform: scale(1.05);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .navbar h1 {
+            display: flex;
+            align-items: center;
+            color: #006064;
+            font-size: 24px;
+            margin-left: 10px;
+        }
+
+        .navbar .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .menu i {
+            margin-right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #00838f;
+        }
+
+        .navbar .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .profile img {
+            border-radius: 50%;
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .navbar .profile div {
+            text-align: right;
+        }
+
+        .navbar .profile a {
+            color: #00838f;
+            text-decoration: none;
+        }
+
+        .content {
+            flex: 1;
+            padding: 80px 20px; /* Added padding to avoid overlap with the navbar */
+            margin-left: 250px; /* Space for sidebar */
+            transition: margin-left 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content.fullscreen {
+            margin-left: 0;
+        }
+
+        .divider {
+            height: 2px;
+            background-color: black;
+            margin: 20px 0;
+        }
+
+        .big-picture {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .big-picture img {
+            width: 70%;
+            max-width: 400px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .big-picture p {
+            margin-top: 0;
+            font-size: 16px;
+            color: #333;
+            text-align: justify;
+            max-width: 500px;
+        }
+
+        .form-group {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input[type="time"],
+        .form-group select {
+            width: 90%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            margin: 5px auto;
+            display: block;
+        }
+
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .book-btn {
+            background-color: #bdbdbd;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 10px;
+            margin: 10px auto;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            width: 90%;
+        }
+
+        .feedback {
+            color: green;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .cancel-btn {
+            background-color: #ff6961; /* Light red */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            margin: 10px auto;
+            display: none; /* Hidden initially */
+            width: 90%;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+                padding: 15px; 
+            }
+
+            .content {
+                margin-left: 0; 
+                padding: 70px 10px; 
+            }
+
+            .navbar h1 {
+                font-size: 20px; 
+            }
+
+            .big-picture img {
+                max-width: 85%; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar h1 {
+                font-size: 18px; 
+            }
+
+            .navbar .profile div {
+                display: none; 
+            }
+
+            .big-picture img {
+                max-width: 80%; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Sports Dashboard</h2>
+        <a href="book_facility.html">Book Facility</a>
+        <a href="tournament_registration.html">Tournament Registration</a>
+        <a href="view_booking.html">View Booking</a>
+        <a href="view_details.html">View Details</a>
+    </div>
+
+    <div class="navbar">
+        <div class="menu">
+            <i class="fa fa-bars" id="menu-toggle"></i>
+            <h1>Football Booking Dashboard</h1>
+        </div>
+        <div class="profile">
+            <img src="https://via.placeholder.com/40" alt="Profile">
+            <div>
+                <p><strong>Chopel</strong></p>
+                <p><a href="">Notifications</a> | <a href="profile.html">Profile</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="divider"></div> <!-- Divider Line -->
+
+        <h2>Book a Football Slot</h2>
+        <p>Details for booking a football pitch go here...</p>
+
+        <!-- Ground Booking Section -->
+        <div class="big-picture">
+            <img src="img/thangzor ground.jpg" alt="Thangzor Football Ground"> <!-- Left-side image -->
+            <div>
+                <h2>Thangzor Football Ground</h2> <!-- Title -->
+                <p>Samdrup Jongkhar, Deothang</p> <!-- Location -->
+                <p>The football ground at <strong>Jigme Namgyel Engineering College (JNEC)</strong> is a well-maintained space where students engage in regular sports activities, especially football. It serves as a key hub for promoting physical fitness, teamwork, and community spirit among the students.</p>
+                <p>The ground often hosts intra-college and inter-college tournaments, fostering healthy competition and offering students a break from their academic routine. During sports festivals or annual events, the field becomes a lively spot where crowds gather to cheer for their teams. It’s not only a place for competitive matches but also a venue for recreational play in the evenings or weekends, creating a balance between academic and extracurricular life.</p>
+                <p>Given its location in the serene environment of Dewathang, the field also benefits from the scenic backdrop of Bhutan's lush greenery and hills, making it a peaceful and refreshing spot for both players and spectators alike.</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="year">Select Year</label>
+            <select id="year" onchange="populateDateOptions()">
+                <script>
+                    for (let year = 2024; year <= 2026; year++) {
+                        document.write('<option value="' + year + '">' + year + '</option>');
+                    }
+                </script>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="date">Date of Match</label>
+            <select id="date"></select>
+        </div>
+
+        <div class="form-group">
+            <label for="start_time">Start Time of Match</label>
+            <input type="time" id="start_time" required>
+        </div>
+
+        <div class="form-group">
+            <label for="end_time">End Time of Match</label>
+            <input type="time" id="end_time" required>
+        </div>
+
+        <div class="button-container">
+            <button class="book-btn" id="bookBtn" onclick="bookGround()">Book</button>
+            <button class="cancel-btn" id="cancelBtn" onclick="cancelBooking()">Cancel Booking</button>
+        </div>
+
+        <div class="feedback" id="feedbackMessage"></div>
+    </div>
+
+    <script>
+        const feedbackMessage = document.getElementById('feedbackMessage');
+        const cancelBtn = document.getElementById('cancelBtn');
+
+        document.getElementById("menu-toggle").addEventListener("click", function() {
+            document.querySelector(".sidebar").classList.toggle("hidden");
+            document.querySelector(".content").classList.toggle("fullscreen");
+        });
+
+        function populateDateOptions() {
+            const dateSelect = document.getElementById('date');
+            const yearSelect = document.getElementById('year');
+            const selectedYear = yearSelect.value;
+
+            // Clear previous options
+            dateSelect.innerHTML = '';
+
+            // Get the first and last day of the selected year
+            const startDate = new Date(selectedYear, 0, 1);
+            const endDate = new Date(selectedYear, 11, 31);
+
+            // Populate the dropdown with every day of the year
+            for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+                const options = document.createElement('option');
+                options.value = date.toISOString().split('T')[0];
+                options.textContent = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+                dateSelect.appendChild(options);
+            }
+        }
+
+        function bookGround() {
+            const year = document.getElementById('year').value;
+            const date = document.getElementById('date').value;
+            const startTime = document.getElementById('start_time').value;
+            const endTime = document.getElementById('end_time').value;
+
+            if (year && date && startTime && endTime) {
+                sessionStorage.setItem('bookingDetails', JSON.stringify({ year, date, startTime, endTime }));
+                feedbackMessage.textContent = 'Booking successful! Your details have been saved.'; // Success message
+                feedbackMessage.style.color = 'green';
+                cancelBtn.style.display = 'block'; // Show cancel button
+            } else {
+                feedbackMessage.textContent = 'Please fill all fields.'; // Error message
+                feedbackMessage.style.color = 'red';
+            }
+        }
+
+        function cancelBooking() {
+            const confirmation = confirm('Are you sure you want to cancel the booking?');
+
+            if (confirmation) {
+                sessionStorage.removeItem('bookingDetails'); // Clear booking details
+                feedbackMessage.textContent = 'Booking canceled successfully.'; // Cancellation message
+                feedbackMessage.style.color = 'orange';
+                cancelBtn.style.display = 'none'; // Hide cancel button
+            }
+        }
+
+        // Populate dates for the default year on load
+        window.onload = function() {
+            populateDateOptions();
+        };
+    </script>
+
+</body>
+</html>
